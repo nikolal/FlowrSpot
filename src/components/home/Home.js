@@ -16,7 +16,7 @@ const Home = (props) => {
 };
 
 const stateToProps = state => ({
-  value: state.homeReducer.value,
+  value: state.homeReducer.value
 });
 
 const dispatchToProps = dispatch => ({
@@ -27,7 +27,7 @@ export default connect(stateToProps, dispatchToProps)(Home);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   text: {
     fontSize: fonts.size.medium

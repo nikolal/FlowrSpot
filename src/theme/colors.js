@@ -20,7 +20,7 @@ const colors = {
 
   brown: '#663300',
   orange: '#ff6600',
-  pink: '#ff66ff',
+  pink: '#e09186',
   violet: '#6600cc',
   yellow: '#FFFF00'
 

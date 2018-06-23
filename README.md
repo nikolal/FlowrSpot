@@ -1,5 +1,5 @@
 # functional-react-native
-Functional react native starter
+FlowrSpot
 
 ## Getting started
 ### Installation
