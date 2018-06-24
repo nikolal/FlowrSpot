@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, ImageBackground, FlatList } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { saveFlowersAction } from './FlowerListContainer.js';
 import { LinearGradient } from 'expo';
-import { metrics, colors, fonts, images } from '../../../theme/index.js';
+import { metrics, colors, fonts } from '../../../theme/index.js';
 import { mainUrl, flowersSuffix, flowersInit } from '../../../../config/api.js';
 
 
@@ -34,7 +34,6 @@ class FlowerList extends Component {
     fetch(url, init)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.props.saveFlowersAction(data.flowers);
       });
 
