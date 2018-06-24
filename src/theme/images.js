@@ -1,5 +1,6 @@
 const images = {
-  // testImage: require('../../assets/images/testImage.png')
+  subheaderBackground: require('../../assets/images/subheader-background.png'),
+  listItemBackground: require('../../assets/images/listitem-background.png'),
 };
 
 export default images;

@@ -1,10 +1,11 @@
 const fonts = {
   size: {
-    tiny: 11,
+    tiny: 9.6,
     small: 13,
-    medium: 15,
-    large: 17,
-    huge: 20
+    medium: 17,
+    large: 20,
+    huge: 29,
+
   },
   weight: {
     small: '200',
