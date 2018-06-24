@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground, FlatList } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, FlatList, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { saveFlowersAction } from './FlowerListContainer.js';
+import { saveFlowersAction, updateLoadingAction, saveSearchTextAction } from './FlowerListContainer.js';
 import { LinearGradient } from 'expo';
 import { metrics, colors, fonts } from '../../../theme/index.js';
 import { mainUrl, flowersSuffix, flowersInit } from '../../../../config/api.js';
@@ -12,8 +12,9 @@ const renderItem = ({ item }, index) => {
   return (
     <ImageBackground style={styles.item} source={{ uri: `https:${item.profile_picture}` }}>
       <LinearGradient
-            colors={[ 'transparent', 'rgb(19, 19, 20)' ]}
-            style={styles.itemOverlay}>
+        colors={[ 'transparent', 'rgb(19, 19, 20)' ]}
+        style={styles.itemOverlay}
+      >
         <Text style={styles.itemTitle}>{item.name}</Text>
         <Text style={styles.itemDescription}>{item.latin_name}</Text>
         <View style={styles.sightingsContainer}>
@@ -30,35 +31,59 @@ class FlowerList extends Component {
     this.getFlowers(`${mainUrl}${flowersSuffix}`, flowersInit);
   }
 
-  getFlowers = (url, init) =>
+  getFlowers = (url, init) => {
+    this.props.updateLoadingAction(true);
     fetch(url, init)
       .then(res => res.json())
       .then(data => {
         this.props.saveFlowersAction(data.flowers);
+        this.props.updateLoadingAction(false);
+      })
+      .catch(err => {
+        this.props.updateLoadingAction(false);
+        console.log(err);
       });
+  }
 
   render(){
-    const { flowers } = this.props;
+    const { flowers, isLoading } = this.props;
     return (
       <View style={styles.container}>
-        <FlatList
-          contentContainerStyle={styles.flatList}
-          keyExtractor={(item, index) => item.id}
-          data={flowers}
-          renderItem={renderItem}
-          numColumns={2}
-        />
+        {
+          isLoading === false && flowers.length === 0
+          ? <Text style={styles.emptyMessage}>There is no flowers available for this search...</Text>
+          : <FlatList
+              contentContainerStyle={styles.flatList}
+              keyExtractor={(item, index) => item.id}
+              data={flowers}
+              renderItem={renderItem}
+              numColumns={2}
+              refreshControl={
+                <RefreshControl
+                  refreshing={isLoading === true && flowers.length === 0}
+                  onRefresh={() => {
+                    this.props.saveSearchTextAction('');
+                    this.getFlowers(`${mainUrl}${flowersSuffix}`, flowersInit);
+                  }}
+                />
+              }
+            />
+        }
       </View>
     );
   }
 }
 
 const stateToProps = state => ({
-  flowers: state.flowerListReducer.flowers
+  flowers: state.flowerListReducer.flowers,
+  searchText: state.flowerListReducer.searchText,
+  isLoading: state.flowerListReducer.isLoading
 });
 
 const dispatchToProps = dispatch => ({
   saveFlowersAction: bindActionCreators(saveFlowersAction, dispatch),
+  updateLoadingAction: bindActionCreators(updateLoadingAction, dispatch),
+  saveSearchTextAction: bindActionCreators(saveSearchTextAction, dispatch),
 });
 
 export default connect(stateToProps, dispatchToProps)(FlowerList);
@@ -112,4 +137,9 @@ const styles = StyleSheet.create({
     fontSize: fonts.size.tiny,
     textAlign: 'center'
   },
+  emptyMessage: {
+    margin: metrics.medium,
+    color: colors.grey,
+    textAlign: 'center'
+  }
 });

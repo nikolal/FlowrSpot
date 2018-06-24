@@ -2,51 +2,50 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, ImageBackground, TouchableOpacity, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { saveFlowersAction } from '../flowerList/FlowerListContainer.js';
+import { saveFlowersAction, saveSearchTextAction } from '../flowerList/FlowerListContainer.js';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { metrics, colors, fonts, images } from '../../../theme/index.js';
 import { mainUrl, flowersSuffix, flowerSearchInit } from '../../../../config/api.js';
 
 class FlowerSearchInput extends Component {
 
-  state = {
-    searchText: ''
-  }
-
-  searchFlowers = (text) => {
-    this.setState({ searchText: text });
-  }
+  searchFlowers = (text) => this.props.saveSearchTextAction(text)
 
   getFlowers = (url, init) => {
     Keyboard.dismiss();
-
     fetch(url, init)
       .then(res => res.json())
       .then(data => this.props.saveFlowersAction(data.flowers));
   }
 
   render (){
+    const { searchText } = this.props;
     return (
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
           onChangeText={this.searchFlowers}
-          value={this.state.searchText}
+          value={searchText}
           placeholder="Looking for something specific?"
         />
         <TouchableOpacity>
-          <SimpleLineIcons name="magnifier" size={20} color={colors.pink} style={styles.searchIcon} onPress={() => this.getFlowers(`${mainUrl}${flowersSuffix}/search?query=${this.state.searchText}`, flowerSearchInit)}/>
+          <SimpleLineIcons name="magnifier" size={20} color={colors.pink} style={styles.searchIcon} onPress={() => this.getFlowers(`${mainUrl}${flowersSuffix}/search?query=${searchText}`, flowerSearchInit)}/>
         </TouchableOpacity>
       </View>
     );
   }
 }
 
-const dispatchToProps = dispatch => ({
-  saveFlowersAction: bindActionCreators(saveFlowersAction, dispatch),
+const stateToProps = state => ({
+  searchText: state.flowerListReducer.searchText,
 });
 
-export default connect(null, dispatchToProps)(FlowerSearchInput);
+const dispatchToProps = dispatch => ({
+  saveFlowersAction: bindActionCreators(saveFlowersAction, dispatch),
+  saveSearchTextAction: bindActionCreators(saveSearchTextAction, dispatch),
+});
+
+export default connect(stateToProps, dispatchToProps)(FlowerSearchInput);
 
 const styles = StyleSheet.create({
   container: {

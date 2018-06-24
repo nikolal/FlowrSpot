@@ -1,8 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { metrics, colors, fonts, images } from '../../theme/index.js';
+import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { colors, fonts, images } from '../../theme/index.js';
 import FlowerList from '../common/flowerList/FlowerList.js';
 import FlowerSearchInput from '../common/flowerSearchInput/FlowerSearchInput.js';
 
@@ -22,22 +20,13 @@ const Home = (props) => {
   );
 };
 
-const stateToProps = state => ({
-  // value: state.homeReducer.value
-});
-
-const dispatchToProps = dispatch => ({
-  // increaseValue: bindActionCreators(increaseValue, dispatch),
-});
-
-export default connect(stateToProps, dispatchToProps)(Home);
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   subheader: {
-    // height: 315,
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
