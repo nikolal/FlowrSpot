@@ -2,6 +2,7 @@
 FlowrSpot
 
 ## Getting started
+
 ### Installation
 ```bash
 $ yarn
@@ -21,4 +22,9 @@ $ exp ios
 or
 ```bash
 $ exp android
+```
+
+### Run Tests
+```bash
+$ npm test
 ```

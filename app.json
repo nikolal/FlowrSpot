@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "FlowrSpot",
-    "description": "An empty new project",
+    "description": "App for flower spotting while hiking",
     "slug": "FlowrSpot",
     "privacy": "public",
     "sdkVersion": "28.0.0",
