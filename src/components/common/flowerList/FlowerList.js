@@ -3,10 +3,10 @@ import { View, Text, StyleSheet, ImageBackground, FlatList, RefreshControl } fro
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { saveFlowersAction, updateLoadingAction, saveSearchTextAction } from './FlowerListContainer.js';
+import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo';
 import { metrics, colors, fonts } from '../../../theme/index.js';
 import { mainUrl, flowersSuffix, flowersInit } from '../../../../config/api.js';
-
 
 const renderItem = ({ item }, index) => {
   return (
@@ -26,6 +26,15 @@ const renderItem = ({ item }, index) => {
 };
 
 class FlowerList extends Component {
+
+  static propTypes = {
+    flowers: PropTypes.array.isRequired,
+    searchText: PropTypes.string.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    saveFlowersAction: PropTypes.func.isRequired,
+    updateLoadingAction: PropTypes.func.isRequired,
+    saveSearchTextAction: PropTypes.func.isRequired,
+  }
 
   componentDidMount = () => {
     this.getFlowers(`${mainUrl}${flowersSuffix}`, flowersInit);

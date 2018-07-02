@@ -3,11 +3,18 @@ import { View, Text, StyleSheet, TextInput, ImageBackground, TouchableOpacity, K
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { saveFlowersAction, saveSearchTextAction } from '../flowerList/FlowerListContainer.js';
+import PropTypes from 'prop-types';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { metrics, colors, fonts, images } from '../../../theme/index.js';
 import { mainUrl, flowersSuffix, flowerSearchInit } from '../../../../config/api.js';
 
 class FlowerSearchInput extends Component {
+
+  static propTypes = {
+    searchText: PropTypes.string.isRequired,
+    saveFlowersAction: PropTypes.func.isRequired,
+    saveSearchTextAction: PropTypes.func.isRequired,
+  }
 
   searchFlowers = (text) => this.props.saveSearchTextAction(text)
 
