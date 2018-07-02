@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     paddingBottom: 76
   },
   subheaderTitle: {
+    fontFamily: 'ubuntu',
     width: 247,
     color: colors.white,
     fontSize: fonts.size.huge,
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     marginBottom: 29
   },
   subheaderDescription: {
+    fontFamily: 'ubuntu',
     marginBottom: 29,
     color: colors.white,
     fontSize: fonts.size.medium,

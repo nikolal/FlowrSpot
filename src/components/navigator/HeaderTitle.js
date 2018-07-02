@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     marginRight: metrics.medium,
   },
   title: {
+    fontFamily: 'ubuntu',
     fontSize: fonts.size.huge,
     color: colors.pink
   }

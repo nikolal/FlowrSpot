@@ -111,12 +111,14 @@ const styles = StyleSheet.create({
     paddingBottom: metrics.large
   },
   itemTitle: {
+    fontFamily: 'ubuntu',
     color: colors.white,
     fontSize: fonts.size.large,
     textAlign: 'center',
     marginBottom: metrics.tiny,
   },
   itemDescription: {
+    fontFamily: 'ubuntu',
     marginBottom: metrics.medium,
     color: colors.white,
     fontSize: fonts.size.tiny,
@@ -133,11 +135,13 @@ const styles = StyleSheet.create({
     opacity: 0.6
   },
   sightingsText: {
+    fontFamily: 'ubuntu',
     color: colors.white,
     fontSize: fonts.size.tiny,
     textAlign: 'center'
   },
   emptyMessage: {
+    fontFamily: 'ubuntu',
     margin: metrics.medium,
     color: colors.grey,
     textAlign: 'center'

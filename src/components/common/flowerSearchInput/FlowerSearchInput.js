@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     paddingLeft: metrics.medium,
-    color: colors.grey
+    color: colors.grey,
+    fontFamily: 'ubuntu',
   },
   searchIcon: {
     marginRight: metrics.huge
